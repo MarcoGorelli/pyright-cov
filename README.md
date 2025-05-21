@@ -1,4 +1,4 @@
-# pyright-cov
+# Pyright-cov
 
 ## Enforce minimum type coverage!
 
@@ -26,7 +26,7 @@ threshold, such as 60%:
 pyright-cov --verifytypes foo --ignoreexternal --fail-under 60
 ```
 
-Additional command-line flags are passed to [PyRight](https://github.com/microsoft/pyright).
+Additional command-line flags are passed to [Pyright](https://github.com/microsoft/pyright).
 
 ## Testing
 
