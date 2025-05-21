@@ -28,3 +28,11 @@ pyright-cov --verifytypes foo --ignoreexternal --fail-under 60
 
 Additional command-line flags are passed to [PyRight](https://github.com/microsoft/pyright).
 
+## Testing
+
+Make sure you have `uv` and `pytest` installed. Then, run:
+
+```
+pytest tests
+```
+
