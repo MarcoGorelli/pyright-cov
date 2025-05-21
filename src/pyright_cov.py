@@ -15,36 +15,30 @@ def main(argv: Sequence[str] | None = None) -> int:
     parser.add_argument('--cov-fail-under', type=float, default=100.0,
                         help='Fail if coverage is below this percentage')
     args, unknownargs = parser.parse_known_args(argv)
-
-    # Check if --outputjson is already in the unknownargs
-    has_output_json = any(arg.startswith('--outputjson') for arg in unknownargs)
-
-    if has_output_json:
-        # User provided their own outputjson, we'll use that
-        return run_pyright_with_coverage(unknownargs, args.cov_fail_under)
-    else:
-        pyright_args = unknownargs + ['--outputjson']
-        return_code = run_pyright_with_coverage(pyright_args, args.cov_fail_under)
-        return return_code
+    pyright_args = list(unknownargs)
+    if '--outputjson' not in pyrightargs:
+        pyrightargs.append('--outputjson')
+    if '--verifytypes' not in pyrightargs:
+        pyrightargs.append('--verifytypes')
+    return run_pyright_with_coverage(pyrightargs, args.cov_fail_under)
 
 
 def run_pyright_with_coverage(
         pyright_args: list[str],
         cov_fail_under: float,
     ) -> int:
-    # Run pyright with the provided arguments
-    result = subprocess.run(['pyright'] + pyright_args, capture_output=True, text=True)
+    result = subprocess.run(['pyright', *pyright_args], capture_output=True, text=True)
 
     # Print pyright's output to maintain normal behavior
     sys.stderr.write(result.stderr)
 
-    # Parse the JSON output if available
     data = json.loads(result.stdout)
     cov_percent = calculate_coverage_percentage(data)
 
     if cov_percent < cov_fail_under:
         print(f"Coverage {cov_percent:.1f}% is below minimum required {cov_fail_under:.1f}%")
         return 1
+    print(f"Coverage {cov_percent:.1f}% is at or above minimum required {cov_fail_under:.1f}%")
     return 0
 
 
