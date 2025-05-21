@@ -4,6 +4,8 @@
 
 `pyright-cov` is a tool which you can use to enforce minimum type coverage in your projects.
 
+![image](https://github.com/user-attachments/assets/03977f7d-ee29-45f1-b8a9-306ec539f8cf)
+
 ## Installation
 
 ```console
