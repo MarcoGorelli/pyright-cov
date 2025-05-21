@@ -29,7 +29,6 @@ def run_pyright_with_coverage(
 
     # Print pyright's output to maintain normal behavior
     sys.stderr.write(result.stderr)
-    print(result.stdout)
     data = json.loads(result.stdout)
     cov_percent = calculate_coverage_percentage(data)
 
