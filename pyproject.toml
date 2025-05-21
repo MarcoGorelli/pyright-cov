@@ -1,6 +1,6 @@
 [project]
 name = "pyright-cov"
-version = "0.1.1"
+version = "0.1.2"
 description = "Run Pyright and enforce minimum type coverage"
 readme = "README.md"
 requires-python = ">=3.9"
