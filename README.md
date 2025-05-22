@@ -30,6 +30,10 @@ pyright-cov --verifytypes foo --ignoreexternal --fail-under 60
 
 Additional command-line flags are passed to [Pyright](https://github.com/microsoft/pyright).
 
+## Used by
+
+- [Narwhals](https://github.com/narwhals-dev/narwhals)
+
 ## Testing
 
 Make sure you have `uv` and `pytest` installed. Then, run:
