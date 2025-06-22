@@ -1,10 +1,8 @@
 from __future__ import annotations
 
-from typing import Generic, TypeVar
+from typing import Generic, TypeVar, Any
 
-from numpy._typing._scalars import _UIntLike_co
-
-def foo(a: _UIntLike_co) -> None:
+def foo(a: Any) -> None:
     return None
 
 def bar(a) -> None:
