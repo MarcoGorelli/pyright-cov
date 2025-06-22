@@ -5,7 +5,7 @@ a minimum threshold.
 Example usage:
 
     pyright-cov --verifytypes narwhals --ignoreexternal \
-        --fail-under 80 --excludelike '*.tests.*'
+        --fail-under 80 --exclude-like '*.tests.*'
 """
 from __future__ import annotations
 
@@ -26,7 +26,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         help="Fail if coverage is below this percentage",
     )
     parser.add_argument(
-        "--excludelike",
+        "--exclude-like",
         required=False,
         type=str,
         help="Exclude symbols whose names matches this glob pattern",
@@ -35,7 +35,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     pyright_args = list(unknownargs)
     if "--outputjson" not in pyright_args:
         pyright_args.append("--outputjson")
-    return run_pyright_with_coverage(pyright_args, args.fail_under, args.excludelike)
+    return run_pyright_with_coverage(pyright_args, args.fail_under, args.exclude_like)
 
 
 def run_pyright_with_coverage(
@@ -67,7 +67,6 @@ def run_pyright_with_coverage(
         cov_percent = data["typeCompleteness"]["completenessScore"] * 100
 
     sys.stderr.write(result.stderr)
-    sys.stdout.write(result.stdout)
     if cov_percent < cov_fail_under:
         sys.stdout.write(
             f"Coverage {cov_percent:.1f}% is below minimum required "
