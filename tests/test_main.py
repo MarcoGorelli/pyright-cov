@@ -14,8 +14,8 @@ def test_main():
     assert result.returncode == 1
     result = subprocess.run(['pyright-cov', '--verifytypes', 'foo', '--ignoreexternal', '--outputjson'])
     assert result.returncode == 1
-    result = subprocess.run(['pyright-cov', '--verifytypes', 'foo', '--ignoreexternal', '--fail-under', '60'])
+    result = subprocess.run(['pyright-cov', '--verifytypes', 'foo', '--ignoreexternal', '--fail-under', '60', '--excludelike', '*.tests.*'])
     assert result.returncode == 0
-    result = subprocess.run(['pyright-cov', '--verifytypes', 'foo', '--ignoreexternal', '--fail-under', '60', '--outputjson'])
+    result = subprocess.run(['pyright-cov', '--verifytypes', 'foo', '--ignoreexternal', '--fail-under', '60', '--outputjson', '--excludelike', '*.tests.*'])
     assert result.returncode == 0
 

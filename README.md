@@ -28,6 +28,12 @@ threshold, such as 60%:
 pyright-cov --verifytypes foo --ignoreexternal --fail-under 60
 ```
 
+To exclude symbols whose names match a given (glob) pattern, use `--excludelike`, for example:
+
+```
+pyright-cov --verifytypes foo --ignoreexternal --excludelike "*.tests.*"
+```
+
 Additional command-line flags are passed to [Pyright](https://github.com/microsoft/pyright).
 
 ## Testing
