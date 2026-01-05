@@ -29,7 +29,8 @@ def main(argv: Sequence[str] | None = None) -> int:
         "--exclude-like",
         required=False,
         type=str,
-        help="Exclude symbols whose names matches this glob pattern",
+        nargs='*',
+        help="Exclude symbols whose names matches these glob pattern",
     )
     args, unknownargs = parser.parse_known_args(argv)
     pyright_args = list(unknownargs)
@@ -41,7 +42,7 @@ def main(argv: Sequence[str] | None = None) -> int:
 def run_pyright_with_coverage(
     pyright_args: list[str],
     cov_fail_under: float,
-    exclude_like: str | None,
+    exclude_like: Sequence[str],
 ) -> int:
     result = subprocess.run(
         ["pyright", *pyright_args], capture_output=True, text=True
@@ -54,10 +55,10 @@ def run_pyright_with_coverage(
         sys.stderr.write(result.stderr)
         return 1
 
-    if exclude_like is not None:
+    if exclude_like:
         symbols = data["typeCompleteness"]["symbols"]
         matched_symbols = [
-            x for x in symbols if not fnmatch.fnmatch(x["name"], exclude_like)
+            x for x in symbols if not any(fnmatch.fnmatch(x["name"], exclusion) for exclusion in exclude_like)
             and x['isExported']
         ]
         cov_percent = (
