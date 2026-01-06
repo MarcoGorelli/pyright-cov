@@ -71,12 +71,12 @@ def run_pyright_with_coverage(
     if cov_percent < cov_fail_under:
         sys.stdout.write(
             f"Coverage {cov_percent:.1f}% is below minimum required "
-            f"{cov_fail_under:.1f}%"
+            f"{cov_fail_under:.1f}%\n"
         )
         return 1
     sys.stdout.write(
         f"Coverage {cov_percent:.1f}% is at or above minimum required "
-        f"{cov_fail_under:.1f}%"
+        f"{cov_fail_under:.1f}%\n"
     )
     return 0
 
